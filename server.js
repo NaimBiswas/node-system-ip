@@ -18,6 +18,6 @@ app.get('/', (req, res) => {
     
     console.log('System IP address:', systemIP);
 
-    res.json({ipPac:ip.address(), remoteIP: req.socket.localAddress, reqIp: req.ip,networkInterfaces:networkInterfaces })
+    res.json({ipPac:ip.address(), remoteIP: req.socket.localAddress, reqIp: req.ip,networkInterfaces:networkInterfaces, systemIP:systemIP })
 })
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
