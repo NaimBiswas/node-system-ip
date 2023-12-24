@@ -3,8 +3,9 @@ const ip = require('ip')
 const app = express()
 const port = 3000
 var os = require('os');
+const axios = require('axios');
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     const networkInterfaces = os.networkInterfaces();
 
     // Find the IP address associated with the network interfaces
@@ -15,9 +16,11 @@ app.get('/', (req, res) => {
         )
       )
       .filter(Boolean)[0].address;
-    
+      const response = await axios.get('https://api.ipify.org?format=json');
+      const publicIP = response.data.ip;
+      console.log('Public IP address:', publicIP);
     console.log('System IP address:', systemIP);
 
-    res.json({ipPac:ip.address(), remoteIP: req.socket.localAddress, reqIp: req.ip,networkInterfaces:networkInterfaces, systemIP:systemIP })
+    res.json({ipPac:ip.address(), remoteIP: req.socket.localAddress, reqIp: req.ip,networkInterfaces:networkInterfaces, systemIP:systemIP, ipifyIp:publicIP })
 })
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
