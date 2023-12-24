@@ -4,7 +4,7 @@ const app = express()
 const port = 3000
 var os = require('os');
 const axios = require('axios');
-
+app.set('trust proxy', true);
 app.get('/', async (req, res) => {
     const networkInterfaces = os.networkInterfaces();
 
@@ -21,6 +21,6 @@ app.get('/', async (req, res) => {
       console.log('Public IP address:', publicIP);
     console.log('System IP address:', systemIP);
 
-    res.json({ipPac:ip.address(), remoteIP: req.socket.localAddress, reqIp: req.ip,networkInterfaces:networkInterfaces, systemIP:systemIP, ipifyIp:publicIP })
+    res.json({ipPac:ip.address(), remoteIP: req.socket.localAddress, reqIp: req.ip,networkInterfaces:networkInterfaces, systemIP:systemIP, ipifyIp:publicIP, trueProxy: `Client IP: ${req.ip}, Client IPs: ${req.ips}` })
 })
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
