@@ -1,7 +1,7 @@
 const express = require('express')
 const ip = require('ip')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 var os = require('os');
 const axios = require('axios');
 app.set('trust proxy', true);
